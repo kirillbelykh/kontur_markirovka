@@ -1,0 +1,81 @@
+2025-09-03 17:04:54,665 - INFO - Попытка клика через обычный click() выполнена
+2025-09-03 17:04:54,673 - INFO - \u2705 Кнопка 'Далее к загрузке товаров' успешно нажата
+2025-09-03 17:04:54,821 - INFO - Введен GTIN: 4640473514527
+2025-09-03 17:04:57,205 - INFO - \u2705 GTIN выбран через клавиатуру (\u2193 + Enter)
+2025-09-03 17:04:59,212 - ERROR - Ошибка при вводе GTIN или количества: Message: stale element reference: stale element not found in the current frame
+  (Session info: chrome=138.0.7204.1913); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#staleelementreferenceexception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff759007c15+24469]
+	(No symbol) [0x0x7ff758f4f920]
+	(No symbol) [0x0x7ff758d9b19a]
+	(No symbol) [0x0x7ff758da2c6b]
+	(No symbol) [0x0x7ff758da5d61]
+	(No symbol) [0x0x7ff758e4545d]
+	(No symbol) [0x0x7ff758e1c2ca]
+	(No symbol) [0x0x7ff758e44175]
+	(No symbol) [0x0x7ff758e1c0a3]
+	(No symbol) [0x0x7ff758de21a4]
+	(No symbol) [0x0x7ff758de3513]
+	GetHandleVerifier [0x0x7ff759380cfd+3666045]
+	GetHandleVerifier [0x0x7ff7593b4332+3876530]
+	GetHandleVerifier [0x0x7ff7593a9f13+3834515]
+	GetHandleVerifier [0x0x7ff7590f486e+994286]
+	(No symbol) [0x0x7ff758f5904d]
+	(No symbol) [0x0x7ff758f54cc4]
+	(No symbol) [0x0x7ff758f54e77]
+	(No symbol) [0x0x7ff758f46525]
+	BaseThreadInitThunk [0x0x7fff8ce2e8d7+23]
+	RtlUserThreadStart [0x0x7fff8e4bc34c+44]
+
+2025-09-03 17:04:59,335 - INFO - Шаг 10: Нажимаем 'Отправить в ГИС МТ'
+2025-09-03 17:05:01,926 - INFO - \u2705 Кнопка 'Отправить в ГИС МТ' нажата
+2025-09-03 17:05:01,926 - INFO - Нажимаем ПОДПИСАТЬ СЕРТИФИКАТОМ
+2025-09-03 17:05:17,331 - ERROR - Ошибка при нажатии кнопки 'Подписать сертификатом': Message: 
+Stacktrace:
+	GetHandleVerifier [0x0x7ff759007c15+24469]
+	(No symbol) [0x0x7ff758f4f920]
+	(No symbol) [0x0x7ff758d9b19a]
+	(No symbol) [0x0x7ff758df1766]
+	(No symbol) [0x0x7ff758df1a1c]
+	(No symbol) [0x0x7ff758e47457]
+	(No symbol) [0x0x7ff758e1c30f]
+	(No symbol) [0x0x7ff758e44175]
+	(No symbol) [0x0x7ff758e1c0a3]
+	(No symbol) [0x0x7ff758de21a4]
+	(No symbol) [0x0x7ff758de3513]
+	GetHandleVerifier [0x0x7ff759380cfd+3666045]
+	GetHandleVerifier [0x0x7ff7593b4332+3876530]
+	GetHandleVerifier [0x0x7ff7593a9f13+3834515]
+	GetHandleVerifier [0x0x7ff7590f486e+994286]
+	(No symbol) [0x0x7ff758f5904d]
+	(No symbol) [0x0x7ff758f54cc4]
+	(No symbol) [0x0x7ff758f54e77]
+	(No symbol) [0x0x7ff758f46525]
+	BaseThreadInitThunk [0x0x7fff8ce2e8d7+23]
+	RtlUserThreadStart [0x0x7fff8e4bc34c+44]
+
+2025-09-03 17:05:29,826 - INFO - \u2705 Работа скрипта завершена
+2025-09-03 17:10:54,778 - INFO - Попытка клика через обычный click() выполнена
+2025-09-03 17:10:54,817 - INFO - \u2705 Кнопка 'Далее к загрузке товаров' успешно нажата
+2025-09-03 17:10:55,004 - INFO - Введен GTIN: 4640473514527
+2025-09-03 17:10:57,382 - INFO - \u2705 GTIN выбран через клавиатуру (\u2193 + Enter)
+2025-09-03 17:11:02,382 - INFO - \u2705 Количество кодов подтверждено: 10
+2025-09-03 17:11:02,382 - INFO - Шаг 10: Нажимаем 'Отправить в ГИС МТ'
+2025-09-03 17:11:05,002 - INFO - \u2705 Кнопка 'Отправить в ГИС МТ' нажата
+2025-09-03 17:11:05,002 - INFO - Нажимаем ПОДПИСАТЬ СЕРТИФИКАТОМ
+2025-09-03 17:11:05,032 - INFO - Кнопка 'Подписать сертификатом' найдена
+2025-09-03 17:11:05,091 - INFO - \u2705 Нажата кнопка 'Подписать сертификатом'
+2025-09-03 17:11:19,552 - INFO - \u2705 Работа скрипта завершена
+2025-09-03 17:16:32,942 - INFO - Попытка клика через обычный click() выполнена
+2025-09-03 17:16:33,047 - INFO - \u2705 Кнопка 'Далее к загрузке товаров' успешно нажата
+2025-09-03 17:16:33,229 - INFO - Введен GTIN: 4640473514527
+2025-09-03 17:16:35,609 - INFO - \u2705 GTIN выбран через клавиатуру (\u2193 + Enter)
+2025-09-03 17:16:40,609 - INFO - \u2705 Количество кодов подтверждено: 10
+2025-09-03 17:16:40,610 - INFO - Шаг 10: Нажимаем 'Отправить в ГИС МТ'
+2025-09-03 17:16:43,323 - WARNING - \u26a0\ufe0f Кнопка 'Отправить в ГИС МТ' возможно не сработала
+2025-09-03 17:16:43,323 - INFO - Нажимаем ПОДПИСАТЬ СЕРТИФИКАТОМ
+2025-09-03 17:16:43,867 - INFO - Кнопка 'Подписать сертификатом' найдена
+2025-09-03 17:16:43,933 - INFO - \u2705 Нажата кнопка 'Подписать сертификатом'
+2025-09-03 17:16:45,933 - INFO - Шаг 12: Нажимаем 'Подписать и отправить в ГИС МТ'
+2025-09-03 17:16:46,489 - INFO - \u2705 Кнопка 'Подписать и отправить в ГИС МТ' нажата
+2025-09-03 17:17:02,027 - INFO - \u2705 Работа скрипта завершена
