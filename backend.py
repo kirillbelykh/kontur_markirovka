@@ -147,8 +147,6 @@ def perform_order_item(item: Dict):
     codes_count = item['codes_count']
     # Additional fields if needed
     simpl_name = item['simpl_name']
-    size = item['size']
-    units_per_pack = item['units_per_pack']
 
     # Selenium setup (each process создает свой драйвер)
     try:

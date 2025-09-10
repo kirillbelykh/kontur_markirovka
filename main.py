@@ -58,7 +58,15 @@ def main():
     collected: List[OrderItem] = []
 
     while True:
-        order_name = input("\nЗаявка (текст, будет вставлен в 'Заказ кодов №'): ").strip()
+        print("\n=== Ввод новой позиции ===")
+        if collected:
+            print("0 - Отменить последнюю добавленную позицию")
+        order_name = input("Заявка (текст, будет вставлен в 'Заказ кодов №'): ").strip()
+        if order_name == "0" and collected:
+            removed = collected.pop()
+            ui_print(f"✅ Последняя позиция удалена: {removed.simpl_name} ({removed.size}, {removed.units_per_pack} уп.)")
+            continue
+
         simpl = choose_option(simplified_options, "Выберите вид товара")
         color = None
         if simpl.lower() in [c.lower() for c in color_required]:
@@ -91,9 +99,13 @@ def main():
             collected.append(it)
             ui_print(f"Добавлено: {simpl} ({size}, {units} уп., {color or 'без цвета'}) — GTIN {gtin} — {codes_count} кодов — заявка '{order_name}'")
 
-        print("\n1 - Ввести ещё позицию\n2 - Выполнить все накопленные позиции")
-        choice = input("Выбор (1/2): ").strip()
-        if choice == "1":
+        print("\n1 - Ввести ещё позицию\n2 - Выполнить все накопленные позиции\n0 - Отменить последнюю добавленную позицию")
+        choice = input("Выбор: ").strip()
+        if choice == "0" and collected:
+            removed = collected.pop()
+            ui_print(f"✅ Последняя позиция удалена: {removed.simpl_name} ({removed.size}, {removed.units_per_pack} уп.)")
+            continue
+        elif choice == "1":
             continue
         elif choice == "2":
             break
