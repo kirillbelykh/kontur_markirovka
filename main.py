@@ -2,19 +2,24 @@ import os
 import logging
 import json
 import copy
+import uuid
 import pandas as pd
 from typing import List, Optional, Tuple
 from dataclasses import asdict
 
+# Импортируем ваши backend-функции/классы
 from backend import OrderItem, perform_order_item, ui_print, lookup_gtin
 
-# try import global browser_not_found for final report
+# Попытка импортировать глобальный browser_not_found для итогового отчёта
 try:
     from backend import browser_not_found  # type: ignore
 except Exception:
     browser_not_found = []
 
-# === options (unchanged) ===
+# Настройка логгирования (можешь убрать / настроить путь)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+
+# ==== Опции выбора ====
 simplified_options = [
     "стер лат 1-хлор", "стер лат", "стер лат 2-хлор", "стер нитрил",
     "хир", "хир 1-хлор", "хир с полимерным", "хир 2-хлор", "хир изопрен",
@@ -64,31 +69,57 @@ def print_collected(collected: List[OrderItem]):
         return
     print("\n--- Накопленные позиции ---")
     for idx, it in enumerate(collected, start=1):
-        print(f"{idx}. {it.simpl_name} | {it.size} | {it.units_per_pack} уп. | GTIN {it.gtin} | к-во: {it.codes_count} | заявка: '{it.order_name}'")
+        uid = getattr(it, "_uid", "no-uid")
+        print(f"{idx}. uid={uid} | {it.simpl_name} | {it.size} | {it.units_per_pack} уп. | GTIN {it.gtin} | к-во: {it.codes_count} | заявка: '{it.order_name}'")
     print("---------------------------\n")
 
 
 def choose_delete_index(collected: List[OrderItem]) -> Optional[int]:
+    """
+    Пользователь может ввести индекс позиции (1-based) или 'uid:<id>'.
+    Если пустая строка — отменяем удаление.
+    """
     if not collected:
         ui_print("Нет позиций для удаления.")
         return None
+
     print_collected(collected)
-    inp = input("Введите номер позиции для удаления (пусто = последняя): ").strip()
+    inp = input("Введите номер позиции для удаления или 'uid:<id>' (пусто = отмена): ").strip()
+    
     if inp == "":
-        return len(collected) - 1
+        ui_print("Удаление отменено.")
+        return None
+
+    if inp.lower().startswith("uid:"):
+        uid_to_remove = inp.split("uid:", 1)[1].strip()
+        for i, it in enumerate(collected):
+            if getattr(it, "_uid", None) == uid_to_remove:
+                return i
+        ui_print("UID не найден.")
+        return None
+
     if not inp.isdigit():
         ui_print("Неверный ввод.")
         return None
+
     idx = int(inp) - 1
     if idx < 0 or idx >= len(collected):
         ui_print("Индекс вне диапазона.")
         return None
+
     return idx
 
 
+
 def safe_perform(it: OrderItem) -> Tuple[bool, str]:
+    """
+    Обёртка над perform_order_item.
+    Передаём в perform_order_item словарь asdict + _uid (если есть), и защищаемся от исключений/None.
+    """
     try:
-        res = perform_order_item(asdict(it))
+        payload = asdict(it)
+        payload["_uid"] = getattr(it, "_uid", None)
+        res = perform_order_item(payload)
         if res is None:
             logging.error("perform_order_item вернула None")
             return False, "perform_order_item вернула None"
@@ -144,6 +175,8 @@ def main():
                 gtin=gtin_input,
                 full_name=""
             )
+            # даём уникальный id позиции
+            setattr(it, "_uid", uuid.uuid4().hex)
             collected.append(it)
             ui_print(f"Добавлено по GTIN: {gtin_input} — {codes_count} кодов — заявка '{order_name}'")
             print_collected(collected)
@@ -184,6 +217,7 @@ def main():
                 gtin=gtin,
                 full_name=full_name or ""
             )
+            setattr(it, "_uid", uuid.uuid4().hex)
             collected.append(it)
             ui_print(f"Добавлено: {simpl} ({size}, {units} уп., {color or 'без цвета'}) — GTIN {gtin} — {codes_count} кодов — заявка '{order_name}'")
             print_collected(collected)
@@ -196,7 +230,7 @@ def main():
         while True:
             print("\nДействия:")
             print("1 - Ввести ещё позицию")
-            print("2 - Удалить позицию (по индексу)")
+            print("2 - Удалить позицию (по индексу или uid:... )")
             print("3 - Показать накопленные позиции")
             print("4 - Выполнить все накопленные позиции")
             print("0 - Выйти без выполнения")
@@ -208,7 +242,7 @@ def main():
                 if idx is None:
                     continue
                 removed = collected.pop(idx)
-                ui_print(f"Удалена позиция #{idx+1}: {removed.simpl_name} — GTIN {removed.gtin}")
+                ui_print(f"Удалена позиция #{idx+1}: uid={getattr(removed,'_uid',None)} | {removed.simpl_name} — GTIN {removed.gtin}")
                 print_collected(collected)
             elif action == "3":
                 print_collected(collected)
@@ -222,26 +256,49 @@ def main():
 
                 # делаем жёсткую глубокую копию коллекции (snapshot)
                 to_process = copy.deepcopy(collected)
-                # сохраняем snapshot на диск для дебага
+
+                # сохраняем snapshot на диск для дебага (включаем _uid в дамп)
                 try:
+                    snapshot = []
+                    for x in to_process:
+                        d = asdict(x)
+                        d["_uid"] = getattr(x, "_uid", None)
+                        snapshot.append(d)
                     with open("last_snapshot.json", "w", encoding="utf-8") as f:
-                        json.dump([asdict(x) for x in to_process], f, ensure_ascii=False, indent=2)
+                        json.dump(snapshot, f, ensure_ascii=False, indent=2)
                     logging.info("Saved last_snapshot.json (snapshot of to_process).")
                 except Exception:
                     logging.exception("Не удалось сохранить last_snapshot.json")
 
+                # контроль того, что snapshot действительно сформирован
                 if not to_process:
                     ui_print("Нет накопленных позиций — выходим.")
                     return
 
+                # перед запуском проверим, что в snapshot нет позиций, которые были удалены (защитный лог)
+                current_uids = {getattr(x, "_uid", None) for x in collected}
+                snapshot_uids = [getattr(x, "_uid", None) for x in to_process]
+                # если какие-то UID отсутствуют — логируем (но всё равно запускаем snapshot)
+                missing = [u for u in snapshot_uids if u not in current_uids]
+                if missing:
+                    logging.warning(f"В snapshot есть UID'ы, которых нет в текущем collected: {missing}")
+                    # это маловероятно при deepcopy, но логируем для диагностики
+
                 ui_print(f"\nБудет выполнено {len(to_process)} задач(и) ПОСЛЕДОВАТЕЛЬНО.")
                 ui_print("Запуск...")
                 results = []
+                success_count = 0
+                fail_count = 0
                 for it in to_process:
-                    ui_print(f"Запуск позиции: {it.simpl_name} | GTIN {it.gtin} | заявка '{it.order_name}'")
+                    uid = getattr(it, "_uid", None)
+                    ui_print(f"Запуск позиции uid={uid}: {it.simpl_name} | GTIN {it.gtin} | заявка '{it.order_name}'")
                     ok, msg = safe_perform(it)
                     results.append((ok, msg, it))
-                    ui_print(f"[{'OK' if ok else 'ERR'}] {it.simpl_name} — {msg}")
+                    if ok:
+                        success_count += 1
+                    else:
+                        fail_count += 1
+                    ui_print(f"[{'OK' if ok else 'ERR'}] uid={uid} {it.simpl_name} — {msg}")
 
                 ui_print("\n=== Выполнение завершено ===")
                 success = sum(1 for r in results if r[0])
@@ -252,14 +309,14 @@ def main():
                     print("\nНеудачные позиции:")
                     for ok, msg, it in results:
                         if not ok:
-                            print(f" - {it.simpl_name} | GTIN {it.gtin} | заявка '{it.order_name}' => {msg}")
+                            print(f" - uid={getattr(it,'_uid',None)} | {it.simpl_name} | GTIN {it.gtin} | заявка '{it.order_name}' => {msg}")
 
                 if browser_not_found:
                     print("\nGTIN, не найденные в справочнике (browser_not_found):")
                     for g in sorted(set(browser_not_found)):
                         print(" -", g)
 
-                # можно очистить collected или оставить — оставлю для возможности повторного запуска
+                # Оставляем collected как есть (так безопаснее); при желании можно удалить успешно выполненные позиции
                 return
             elif action == "0":
                 ui_print("Выход без выполнения.")
