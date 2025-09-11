@@ -301,8 +301,7 @@ def main():
                     ui_print(f"[{'OK' if ok else 'ERR'}] uid={uid} {it.simpl_name} — {msg}")
 
                 ui_print("\n=== Выполнение завершено ===")
-                success = sum(1 for r in results if r[0])
-                ui_print(f"Успешно: {success}, Ошибок: {len(results)-success}.")
+                ui_print(f"Успешно: {success_count}, Ошибок: {fail_count}.")
 
                 # подробный отчёт
                 if any(not r[0] for r in results):
