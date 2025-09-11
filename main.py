@@ -1,9 +1,17 @@
 import os
 import logging
 import pandas as pd
-from typing import List, Dict
+from typing import List, Optional, Tuple
 from dataclasses import asdict
+
+# импортируем из backend — предполагается, что эти имена там есть
 from backend import OrderItem, perform_order_item, ui_print, lookup_gtin
+
+# (опционально) если в backend есть browser_not_found, импортируем для отчёта
+try:
+    from backend import browser_not_found  # type: ignore
+except Exception:
+    browser_not_found = []
 
 # ==== Опции выбора ====
 simplified_options = [
@@ -37,7 +45,8 @@ size_options = [
 
 units_options = [1,2,3,4,5,6,7,8,9,10,20,25,30,40,50,60,70,80,90,100,110,120,125,250,500]
 
-def choose_option(options, prompt):
+
+def choose_option(options: List, prompt: str):
     print(f"\n{prompt}:")
     for i, option in enumerate(options, start=1):
         print(f"{i}. {option}")
@@ -46,6 +55,58 @@ def choose_option(options, prompt):
         if choice.isdigit() and 1 <= int(choice) <= len(options):
             return options[int(choice)-1]
         print("Неверный выбор. Попробуйте снова.")
+
+
+def print_collected(collected: List[OrderItem]):
+    if not collected:
+        print("\n--- Накопленные позиции: пусто ---\n")
+        return
+    print("\n--- Накопленные позиции ---")
+    for idx, it in enumerate(collected, start=1):
+        # формат вывода под поля OrderItem
+        print(f"{idx}. {it.simpl_name} | {it.size} | {it.units_per_pack} уп. | GTIN {it.gtin} | к-во: {it.codes_count} | заявка: '{it.order_name}'")
+    print("---------------------------\n")
+
+
+def choose_delete_index(collected: List[OrderItem]) -> Optional[int]:
+    if not collected:
+        ui_print("Нет позиций для удаления.")
+        return None
+    print_collected(collected)
+    inp = input("Введите номер позиции для удаления (пусто = последняя): ").strip()
+    if inp == "":
+        return len(collected) - 1
+    if not inp.isdigit():
+        ui_print("Неверный ввод.")
+        return None
+    idx = int(inp) - 1
+    if idx < 0 or idx >= len(collected):
+        ui_print("Индекс вне диапазона.")
+        return None
+    return idx
+
+
+def safe_perform(it: OrderItem) -> Tuple[bool, str]:
+    """
+    Обёртка над perform_order_item: защищаемся от None/исключений.
+    Возвращаем (ok, message).
+    """
+    try:
+        res = perform_order_item(asdict(it))
+        # если функция вернула None или не кортеж — корректируем
+        if res is None:
+            logging.error("perform_order_item вернула None")
+            return False, "perform_order_item вернула None"
+        if isinstance(res, tuple) and len(res) == 2:
+            ok, msg = res
+            return bool(ok), str(msg)
+        # неожиданное значение
+        logging.error(f"perform_order_item вернула некорректный результат: {res}")
+        return False, f"Некорректный результат: {res}"
+    except Exception as e:
+        logging.exception("Ошибка при вызове perform_order_item")
+        return False, f"Exception: {e}"
+
 
 def main():
     NOMENCLATURE_XLSX = "data/nomenclature.xlsx"
@@ -60,14 +121,21 @@ def main():
     collected: List[OrderItem] = []
 
     while True:
-        # Спрашиваем: поиск по GTIN?
+        # Ввод режима
         print("\nПоиск по GTIN?")
         print("1. Да")
         print("2. Нет")
         gtin_choice = input("Выбор (1/2): ").strip()
+
         if gtin_choice == "1":
             order_name = input("Заявка (текст, будет вставлен в 'Заказ кодов №'): ").strip()
+            if not order_name:
+                ui_print("Нужно ввести заявку.")
+                continue
             gtin_input = input("Введите GTIN: ").strip()
+            if not gtin_input:
+                ui_print("GTIN пустой — отмена.")
+                continue
             try:
                 codes_count = int(input("Количество кодов (целое): ").strip())
             except:
@@ -85,10 +153,14 @@ def main():
             )
             collected.append(it)
             ui_print(f"Добавлено по GTIN: {gtin_input} — {codes_count} кодов — заявка '{order_name}'")
+            print_collected(collected)
 
         elif gtin_choice == "2":
-            # Обычный ввод по параметрам
             order_name = input("\nЗаявка (текст, будет вставлен в 'Заказ кодов №'): ").strip()
+            if not order_name:
+                ui_print("Нужно ввести заявку.")
+                continue
+
             simpl = choose_option(simplified_options, "Выберите вид товара")
             color = None
             if simpl.lower() in [c.lower() for c in color_required]:
@@ -121,51 +193,76 @@ def main():
             )
             collected.append(it)
             ui_print(f"Добавлено: {simpl} ({size}, {units} уп., {color or 'без цвета'}) — GTIN {gtin} — {codes_count} кодов — заявка '{order_name}'")
+            print_collected(collected)
+
         else:
             ui_print("Неверный выбор — попробуйте снова.")
             continue
 
-        # Варианты продолжения
-        print("\n1 - Ввести ещё позицию")
-        print("2 - Отменить последнюю позицию")
-        print("3 - Выполнить все накопленные позиции")
-        choice = input("Выбор (1/2/3): ").strip()
-        if choice == "1":
-            continue
-        elif choice == "2":
-            if collected:
-                removed = collected.pop()
-                ui_print(f"Удалена последняя позиция: {removed.simpl_name} — GTIN {removed.gtin}")
+        # Меню после добавления
+        while True:
+            print("\nДействия:")
+            print("1 - Ввести ещё позицию")
+            print("2 - Удалить позицию (по индексу)")
+            print("3 - Показать накопленные позиции")
+            print("4 - Выполнить все накопленные позиции")
+            print("0 - Выйти без выполнения")
+            action = input("Выбор (0/1/2/3/4): ").strip()
+            if action == "1":
+                break  # переходим к добавлению новой позиции
+            elif action == "2":
+                idx = choose_delete_index(collected)
+                if idx is None:
+                    continue
+                removed = collected.pop(idx)
+                ui_print(f"Удалена позиция #{idx+1}: {removed.simpl_name} — GTIN {removed.gtin}")
+                print_collected(collected)
+            elif action == "3":
+                print_collected(collected)
+            elif action == "4":
+                # Подтверждение
+                print_collected(collected)
+                confirm = input(f"Подтвердите выполнение {len(collected)} задач(и)? (y/n): ").strip().lower()
+                if confirm != "y":
+                    ui_print("Выполнение отменено пользователем.")
+                    continue
+                to_process = collected.copy()  # snapshot
+                if not to_process:
+                    ui_print("Нет накопленных позиций — выходим.")
+                    return
+
+                ui_print(f"\nБудет выполнено {len(to_process)} задач(и) ПОСЛЕДОВАТЕЛЬНО.")
+                ui_print("Запуск...")
+                results = []
+                for it in to_process:
+                    ui_print(f"Запуск позиции: {it.simpl_name} | GTIN {it.gtin} | заявка '{it.order_name}'")
+                    ok, msg = safe_perform(it)
+                    results.append((ok, msg, it))
+                    ui_print(f"[{'OK' if ok else 'ERR'}] {it.simpl_name} — {msg}")
+
+                ui_print("\n=== Выполнение завершено ===")
+                success = sum(1 for r in results if r[0])
+                ui_print(f"Успешно: {success}, Ошибок: {len(results)-success}.")
+
+                # подробный отчёт
+                if any(not r[0] for r in results):
+                    print("\nНеудачные позиции:")
+                    for ok, msg, it in results:
+                        if not ok:
+                            print(f" - {it.simpl_name} | GTIN {it.gtin} | заявка '{it.order_name}' => {msg}")
+
+                if browser_not_found:
+                    print("\nGTIN, не найденные в справочнике (browser_not_found):")
+                    for g in sorted(set(browser_not_found)):
+                        print(" -", g)
+
+                return  # выход после выполнения
+            elif action == "0":
+                ui_print("Выход без выполнения.")
+                return
             else:
-                ui_print("Список пуст — нечего удалять.")
-            continue
-        elif choice == "3":
-            break
-        else:
-            ui_print("Неверный выбор — продолжаем ввод.")
-            continue
+                ui_print("Неверный выбор. Попробуйте снова.")
 
-    if not collected:
-        ui_print("Нет накопленных позиций — выходим.")
-        return
-
-    ui_print(f"\nБудет выполнено {len(collected)} задач(и) ПОСЛЕДОВАТЕЛЬНО.")
-    ui_print("Запуск...")
-
-    results = []
-    for it in collected:
-        try:
-            ok, msg = perform_order_item(asdict(it))
-            results.append((ok, msg, it))
-            ui_print(f"[{'OK' if ok else 'ERR'}] {it.simpl_name} — {msg}")
-        except Exception as e:
-            logging.exception("Ошибка при выполнении задачи")
-            results.append((False, str(e), it))
-            ui_print(f"[ERR] {it.simpl_name} — exception: {e}")
-
-    ui_print("\n=== Выполнение завершено ===")
-    success = sum(1 for r in results if r[0])
-    ui_print(f"Успешно: {success}, Ошибок: {len(results)-success}.")
 
 if __name__ == "__main__":
     main()
