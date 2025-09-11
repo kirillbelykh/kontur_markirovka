@@ -1,0 +1,311 @@
+2025-09-10 19:44:06,100 - INFO - Worker start for order: ТЕСТ 1 - по GTIN
+2025-09-10 19:44:27,063 - INFO - Попытка клика через обычный click() выполнена
+2025-09-10 19:44:32,185 - WARNING - Кнопка не исчезла после клика, пробуем JS-клик
+2025-09-10 19:44:33,208 - INFO - Попытка клика через JS выполнена
+2025-09-10 19:44:33,481 - INFO - Введен GTIN: 4660537614550
+2025-09-10 19:44:35,492 - WARNING - \u274c GTIN 4660537614550 не найден в справочнике браузера
+2025-09-10 19:44:35,492 - ERROR - Ошибка при выполнении задачи
+Traceback (most recent call last):
+  File "C:\Users\sklad\Desktop\kontur_automation\main.py", line 158, in main
+    ok, msg = perform_order_item(asdict(it))
+    ^^^^^^^
+TypeError: cannot unpack non-iterable NoneType object
+2025-09-11 09:31:17,748 - INFO - Worker start for order: ТЕСТ 1 - по GTIN
+2025-09-11 09:31:38,322 - INFO - Попытка клика через обычный click() выполнена
+2025-09-11 09:31:43,401 - WARNING - Кнопка не исчезла после клика, пробуем JS-клик
+2025-09-11 09:31:44,424 - INFO - Попытка клика через JS выполнена
+2025-09-11 09:31:44,645 - INFO - Введен GTIN: 4650118042032
+2025-09-11 09:31:46,654 - WARNING - \u274c GTIN 4650118042032 не найден в справочнике браузера
+2025-09-11 09:31:46,672 - ERROR - Ошибка при выполнении задачи
+Traceback (most recent call last):
+  File "C:\Users\sklad\Desktop\kontur_automation\main.py", line 158, in main
+    ok, msg = perform_order_item(asdict(it))
+    ^^^^^^^
+TypeError: cannot unpack non-iterable NoneType object
+2025-09-11 09:43:08,856 - INFO - Worker start for order: ТЕСТ 1 - стер лат
+2025-09-11 09:43:28,918 - INFO - Попытка клика через обычный click() выполнена
+2025-09-11 09:43:33,992 - WARNING - Кнопка не исчезла после клика, пробуем JS-клик
+2025-09-11 09:43:35,014 - INFO - Попытка клика через JS выполнена
+2025-09-11 09:43:35,231 - INFO - Введен GTIN: 4650118043312
+2025-09-11 09:43:37,242 - WARNING - \u274c GTIN 4650118043312 не найден в справочнике браузера
+2025-09-11 09:43:37,243 - ERROR - Ошибка при выполнении задачи
+Traceback (most recent call last):
+  File "C:\Users\sklad\Desktop\kontur_automation\main.py", line 158, in main
+    ok, msg = perform_order_item(asdict(it))
+    ^^^^^^^
+TypeError: cannot unpack non-iterable NoneType object
+2025-09-11 10:03:26,621 - INFO - Worker start for order: ТЕСТ 1 - по GTIN
+2025-09-11 10:03:47,087 - INFO - Попытка клика через обычный click() выполнена
+2025-09-11 10:03:52,165 - WARNING - Кнопка не исчезла после клика, пробуем JS-клик
+2025-09-11 10:03:53,187 - INFO - Попытка клика через JS выполнена
+2025-09-11 10:03:53,447 - INFO - Введен GTIN: 4650118042032
+2025-09-11 10:03:55,461 - ERROR - Ошибка при вводе GTIN или количества: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//li[contains(., 'Товар не найден в справочнике')]"}
+  (Session info: chrome=138.0.7204.1913); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff708ee7c15+24469]
+	(No symbol) [0x0x7ff708e2f920]
+	(No symbol) [0x0x7ff708c7b19a]
+	(No symbol) [0x0x7ff708cd1766]
+	(No symbol) [0x0x7ff708cd1a1c]
+	(No symbol) [0x0x7ff708d27457]
+	(No symbol) [0x0x7ff708cfc30f]
+	(No symbol) [0x0x7ff708d24175]
+	(No symbol) [0x0x7ff708cfc0a3]
+	(No symbol) [0x0x7ff708cc21a4]
+	(No symbol) [0x0x7ff708cc3513]
+	GetHandleVerifier [0x0x7ff709260cfd+3666045]
+	GetHandleVerifier [0x0x7ff709294332+3876530]
+	GetHandleVerifier [0x0x7ff709289f13+3834515]
+	GetHandleVerifier [0x0x7ff708fd486e+994286]
+	(No symbol) [0x0x7ff708e3904d]
+	(No symbol) [0x0x7ff708e34cc4]
+	(No symbol) [0x0x7ff708e34e77]
+	(No symbol) [0x0x7ff708e26525]
+	BaseThreadInitThunk [0x0x7ff85749e8d7+23]
+	RtlUserThreadStart [0x0x7ff857808d9c+44]
+
+2025-09-11 10:04:06,023 - ERROR - Ошибка при нажатии кнопки 'Отправить в ГИС МТ': Message: 
+
+2025-09-11 10:04:06,147 - INFO - Нажимаем ПОДПИСАТЬ СЕРТИФИКАТОМ
+2025-09-11 10:04:21,407 - ERROR - Ошибка при нажатии кнопки 'Подписать сертификатом': Message: 
+Stacktrace:
+	GetHandleVerifier [0x0x7ff708ee7c15+24469]
+	(No symbol) [0x0x7ff708e2f920]
+	(No symbol) [0x0x7ff708c7b19a]
+	(No symbol) [0x0x7ff708cd1766]
+	(No symbol) [0x0x7ff708cd1a1c]
+	(No symbol) [0x0x7ff708d27457]
+	(No symbol) [0x0x7ff708cfc30f]
+	(No symbol) [0x0x7ff708d24175]
+	(No symbol) [0x0x7ff708cfc0a3]
+	(No symbol) [0x0x7ff708cc21a4]
+	(No symbol) [0x0x7ff708cc3513]
+	GetHandleVerifier [0x0x7ff709260cfd+3666045]
+	GetHandleVerifier [0x0x7ff709294332+3876530]
+	GetHandleVerifier [0x0x7ff709289f13+3834515]
+	GetHandleVerifier [0x0x7ff708fd486e+994286]
+	(No symbol) [0x0x7ff708e3904d]
+	(No symbol) [0x0x7ff708e34cc4]
+	(No symbol) [0x0x7ff708e34e77]
+	(No symbol) [0x0x7ff708e26525]
+	BaseThreadInitThunk [0x0x7ff85749e8d7+23]
+	RtlUserThreadStart [0x0x7ff857808d9c+44]
+
+2025-09-11 10:04:36,791 - ERROR - Ошибка при нажатии кнопки 'Подписать и отправить в ГИС МТ': Message: 
+Stacktrace:
+	GetHandleVerifier [0x0x7ff708ee7c15+24469]
+	(No symbol) [0x0x7ff708e2f920]
+	(No symbol) [0x0x7ff708c7b19a]
+	(No symbol) [0x0x7ff708cd1766]
+	(No symbol) [0x0x7ff708cd1a1c]
+	(No symbol) [0x0x7ff708d27457]
+	(No symbol) [0x0x7ff708cfc30f]
+	(No symbol) [0x0x7ff708d24175]
+	(No symbol) [0x0x7ff708cfc0a3]
+	(No symbol) [0x0x7ff708cc21a4]
+	(No symbol) [0x0x7ff708cc3513]
+	GetHandleVerifier [0x0x7ff709260cfd+3666045]
+	GetHandleVerifier [0x0x7ff709294332+3876530]
+	GetHandleVerifier [0x0x7ff709289f13+3834515]
+	GetHandleVerifier [0x0x7ff708fd486e+994286]
+	(No symbol) [0x0x7ff708e3904d]
+	(No symbol) [0x0x7ff708e34cc4]
+	(No symbol) [0x0x7ff708e34e77]
+	(No symbol) [0x0x7ff708e26525]
+	BaseThreadInitThunk [0x0x7ff85749e8d7+23]
+	RtlUserThreadStart [0x0x7ff857808d9c+44]
+
+2025-09-11 10:09:33,661 - INFO - Worker start for order: ТЕСТ 1 - по GTIN
+2025-09-11 10:09:52,979 - INFO - Попытка клика через обычный click() выполнена
+2025-09-11 10:09:58,055 - WARNING - Кнопка не исчезла после клика, пробуем JS-клик
+2025-09-11 10:09:59,078 - INFO - Попытка клика через JS выполнена
+2025-09-11 10:09:59,309 - INFO - Введен GTIN: 4650118042032
+2025-09-11 10:10:01,709 - INFO - \u2705 GTIN выбран через клавиатуру (\u2193 + Enter)
+2025-09-11 10:10:06,603 - INFO - \u2705 Количество кодов подтверждено: 10
+2025-09-11 10:10:34,761 - INFO - Worker start for order: ТЕСТ 1 - по GTIN
+2025-09-11 10:10:54,261 - INFO - Попытка клика через обычный click() выполнена
+2025-09-11 10:10:59,341 - WARNING - Кнопка не исчезла после клика, пробуем JS-клик
+2025-09-11 10:11:00,368 - INFO - Попытка клика через JS выполнена
+2025-09-11 10:11:00,661 - INFO - Введен GTIN: 123012-398091274012
+2025-09-11 10:11:03,012 - INFO - \u2705 GTIN выбран через клавиатуру (\u2193 + Enter)
+2025-09-11 10:11:07,994 - INFO - \u2705 Количество кодов подтверждено: 10
+2025-09-11 10:11:18,391 - ERROR - Ошибка при нажатии кнопки 'Отправить в ГИС МТ': Message: 
+
+2025-09-11 10:11:18,501 - INFO - Нажимаем ПОДПИСАТЬ СЕРТИФИКАТОМ
+2025-09-11 10:11:33,744 - ERROR - Ошибка при нажатии кнопки 'Подписать сертификатом': Message: 
+Stacktrace:
+	GetHandleVerifier [0x0x7ff708ee7c15+24469]
+	(No symbol) [0x0x7ff708e2f920]
+	(No symbol) [0x0x7ff708c7b19a]
+	(No symbol) [0x0x7ff708cd1766]
+	(No symbol) [0x0x7ff708cd1a1c]
+	(No symbol) [0x0x7ff708d27457]
+	(No symbol) [0x0x7ff708cfc30f]
+	(No symbol) [0x0x7ff708d24175]
+	(No symbol) [0x0x7ff708cfc0a3]
+	(No symbol) [0x0x7ff708cc21a4]
+	(No symbol) [0x0x7ff708cc3513]
+	GetHandleVerifier [0x0x7ff709260cfd+3666045]
+	GetHandleVerifier [0x0x7ff709294332+3876530]
+	GetHandleVerifier [0x0x7ff709289f13+3834515]
+	GetHandleVerifier [0x0x7ff708fd486e+994286]
+	(No symbol) [0x0x7ff708e3904d]
+	(No symbol) [0x0x7ff708e34cc4]
+	(No symbol) [0x0x7ff708e34e77]
+	(No symbol) [0x0x7ff708e26525]
+	BaseThreadInitThunk [0x0x7ff85749e8d7+23]
+	RtlUserThreadStart [0x0x7ff857808d9c+44]
+
+2025-09-11 10:14:19,327 - INFO - Worker start for order: ТЕСТ 1 - по GTIN
+2025-09-11 10:14:38,573 - INFO - Попытка клика через обычный click() выполнена
+2025-09-11 10:14:43,645 - WARNING - Кнопка не исчезла после клика, пробуем JS-клик
+2025-09-11 10:14:44,668 - INFO - Попытка клика через JS выполнена
+2025-09-11 10:14:45,006 - INFO - Введен GTIN: 12312312313912347124
+2025-09-11 10:14:47,348 - INFO - \u2705 GTIN выбран через клавиатуру (\u2193 + Enter)
+2025-09-11 10:14:52,300 - INFO - \u2705 Количество кодов подтверждено: 12
+2025-09-11 10:15:02,704 - ERROR - Ошибка при нажатии кнопки 'Отправить в ГИС МТ': Message: 
+
+2025-09-11 10:16:37,472 - INFO - Worker start for order: ТЕСТ 1 - по GTIN
+2025-09-11 10:16:56,712 - INFO - Попытка клика через обычный click() выполнена
+2025-09-11 10:17:01,790 - WARNING - Кнопка не исчезла после клика, пробуем JS-клик
+2025-09-11 10:17:02,813 - INFO - Попытка клика через JS выполнена
+2025-09-11 10:17:03,083 - INFO - Введен GTIN: 4650118042032
+2025-09-11 10:17:05,451 - INFO - \u2705 GTIN выбран через клавиатуру (\u2193 + Enter)
+2025-09-11 10:17:53,939 - INFO - Worker start for order: ТЕСТ 1 - по GTIN
+2025-09-11 10:18:14,176 - INFO - Попытка клика через обычный click() выполнена
+2025-09-11 10:18:19,253 - WARNING - Кнопка не исчезла после клика, пробуем JS-клик
+2025-09-11 10:18:20,276 - INFO - Попытка клика через JS выполнена
+2025-09-11 10:18:20,632 - INFO - Введен GTIN: 1930218129047129804712
+2025-09-11 10:18:22,973 - INFO - \u2705 GTIN выбран через клавиатуру (\u2193 + Enter)
+2025-09-11 10:18:27,903 - INFO - \u2705 Количество кодов подтверждено: 10
+2025-09-11 10:18:38,316 - ERROR - Ошибка при нажатии кнопки 'Отправить в ГИС МТ': Message: 
+
+2025-09-11 10:18:38,316 - INFO - Worker start for order: ТЕСТ 2 - стер лат
+2025-09-11 10:18:41,057 - ERROR - Unhandled exception in worker
+Traceback (most recent call last):
+  File "C:\Users\sklad\Desktop\kontur_automation\backend.py", line 179, in perform_order_item
+    driver = webdriver.Chrome(service=service, options=options)
+  File "C:\Users\sklad\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\chrome\webdriver.py", line 47, in __init__
+    super().__init__(
+    ~~~~~~~~~~~~~~~~^
+        browser_name=DesiredCapabilities.CHROME["browserName"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        keep_alive=keep_alive,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sklad\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\chromium\webdriver.py", line 69, in __init__
+    super().__init__(command_executor=executor, options=options)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sklad\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 263, in __init__
+    self.start_session(capabilities)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\sklad\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 366, in start_session
+    response = self.execute(Command.NEW_SESSION, caps)["value"]
+               ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sklad\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 458, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\sklad\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.SessionNotCreatedException: Message: session not created: Chrome failed to start: crashed.
+  (session not created: DevToolsActivePort file doesn't exist)
+  (The process started from chrome location C:\Users\sklad\AppData\Local\Yandex\YandexBrowser\Application\browser.exe is no longer running, so ChromeDriver is assuming that Chrome has crashed.); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff708ee7c15+24469]
+	(No symbol) [0x0x7ff708e2f920]
+	(No symbol) [0x0x7ff708c7b19a]
+	(No symbol) [0x0x7ff708cb92bc]
+	(No symbol) [0x0x7ff708cb340a]
+	(No symbol) [0x0x7ff708d08ec1]
+	(No symbol) [0x0x7ff708d08610]
+	(No symbol) [0x0x7ff708cfc0a3]
+	(No symbol) [0x0x7ff708cc21a4]
+	(No symbol) [0x0x7ff708cc3513]
+	GetHandleVerifier [0x0x7ff709260cfd+3666045]
+	GetHandleVerifier [0x0x7ff709294332+3876530]
+	GetHandleVerifier [0x0x7ff709289f13+3834515]
+	GetHandleVerifier [0x0x7ff708fd486e+994286]
+	(No symbol) [0x0x7ff708e3904d]
+	(No symbol) [0x0x7ff708e34cc4]
+	(No symbol) [0x0x7ff708e34e77]
+	(No symbol) [0x0x7ff708e26525]
+	BaseThreadInitThunk [0x0x7ff85749e8d7+23]
+	RtlUserThreadStart [0x0x7ff857808d9c+44]
+
+2025-09-11 10:24:33,572 - INFO - Worker start for order: ТЕСТ 1 - по GTIN
+2025-09-11 10:24:52,708 - INFO - Попытка клика через обычный click() выполнена
+2025-09-11 10:24:57,786 - WARNING - Кнопка не исчезла после клика, пробуем JS-клик
+2025-09-11 10:24:58,808 - INFO - Попытка клика через JS выполнена
+2025-09-11 10:24:59,114 - INFO - Введен GTIN: 81293612312312312
+2025-09-11 10:25:01,455 - INFO - \u2705 GTIN выбран через клавиатуру (\u2193 + Enter)
+2025-09-11 10:25:06,390 - INFO - \u2705 Количество кодов подтверждено: 10
+2025-09-11 10:25:16,797 - ERROR - Ошибка при нажатии кнопки 'Отправить в ГИС МТ': Message: 
+
+2025-09-11 10:25:16,797 - WARNING - \u274c GTIN 81293612312312312 пропущен из-за ошибки при отправке
+2025-09-11 10:25:16,797 - INFO - Worker start for order: ТЕСТ 2 - стер лат
+2025-09-11 10:25:19,552 - ERROR - Unhandled exception in worker
+Traceback (most recent call last):
+  File "C:\Users\sklad\Desktop\kontur_automation\backend.py", line 179, in perform_order_item
+    driver = webdriver.Chrome(service=service, options=options)
+  File "C:\Users\sklad\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\chrome\webdriver.py", line 47, in __init__
+    super().__init__(
+    ~~~~~~~~~~~~~~~~^
+        browser_name=DesiredCapabilities.CHROME["browserName"],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        keep_alive=keep_alive,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sklad\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\chromium\webdriver.py", line 69, in __init__
+    super().__init__(command_executor=executor, options=options)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sklad\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 263, in __init__
+    self.start_session(capabilities)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\sklad\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 366, in start_session
+    response = self.execute(Command.NEW_SESSION, caps)["value"]
+               ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sklad\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 458, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\sklad\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.SessionNotCreatedException: Message: session not created: Chrome failed to start: crashed.
+  (session not created: DevToolsActivePort file doesn't exist)
+  (The process started from chrome location C:\Users\sklad\AppData\Local\Yandex\YandexBrowser\Application\browser.exe is no longer running, so ChromeDriver is assuming that Chrome has crashed.); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#sessionnotcreatedexception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff708ee7c15+24469]
+	(No symbol) [0x0x7ff708e2f920]
+	(No symbol) [0x0x7ff708c7b19a]
+	(No symbol) [0x0x7ff708cb92bc]
+	(No symbol) [0x0x7ff708cb340a]
+	(No symbol) [0x0x7ff708d08ec1]
+	(No symbol) [0x0x7ff708d08610]
+	(No symbol) [0x0x7ff708cfc0a3]
+	(No symbol) [0x0x7ff708cc21a4]
+	(No symbol) [0x0x7ff708cc3513]
+	GetHandleVerifier [0x0x7ff709260cfd+3666045]
+	GetHandleVerifier [0x0x7ff709294332+3876530]
+	GetHandleVerifier [0x0x7ff709289f13+3834515]
+	GetHandleVerifier [0x0x7ff708fd486e+994286]
+	(No symbol) [0x0x7ff708e3904d]
+	(No symbol) [0x0x7ff708e34cc4]
+	(No symbol) [0x0x7ff708e34e77]
+	(No symbol) [0x0x7ff708e26525]
+	BaseThreadInitThunk [0x0x7ff85749e8d7+23]
+	RtlUserThreadStart [0x0x7ff857808d9c+44]
+
+2025-09-11 10:30:12,446 - INFO - Worker start for order: ТЕСТ 1 - по GTIN
+2025-09-11 10:30:31,872 - INFO - Попытка клика через обычный click() выполнена
+2025-09-11 10:30:36,945 - WARNING - Кнопка не исчезла после клика, пробуем JS-клик
+2025-09-11 10:30:37,968 - INFO - Попытка клика через JS выполнена
+2025-09-11 10:30:38,235 - INFO - Введен GTIN: 21389712983123
+2025-09-11 10:30:40,577 - INFO - \u2705 GTIN выбран через клавиатуру (\u2193 + Enter)
+2025-09-11 10:30:45,526 - INFO - \u2705 Количество кодов подтверждено: 12
+2025-09-11 10:30:55,904 - ERROR - Ошибка при нажатии кнопки 'Отправить в ГИС МТ': Message: 
+
+2025-09-11 10:30:55,904 - WARNING - \u274c GTIN 21389712983123 пропущен из-за ошибки при отправке
+2025-09-11 10:30:58,301 - INFO - Worker start for order: ТЕСТ 2 - стер лат

@@ -17,7 +17,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 # -----------------------------
 # ========== CONFIG ===========
@@ -377,15 +377,7 @@ def perform_order_item(item: Dict):
             logging.info(f"Введен GTIN: {gtin}")
             time.sleep(2)  # время на появление списка
 
-            # После ввода GTIN ждём появления выпадающего списка
-            options = driver.find_elements(By.CSS_SELECTOR, '[data-test-id="productCatalogSearchInput"] ul li')
-            if not options:
-                logging.warning(f"❌ GTIN {gtin} не найден в справочнике браузера")
-                browser_not_found.append(gtin)
-                return
-
             
-            # Жмем стрелку вниз + Enter (выбираем первый вариант)
             gtin_input.send_keys(Keys.ARROW_DOWN)
             time.sleep(0.3)
             gtin_input.send_keys(Keys.ENTER)
@@ -458,7 +450,10 @@ def perform_order_item(item: Dict):
 
         except Exception as e:
             logging.error(f"Ошибка при нажатии кнопки 'Отправить в ГИС МТ': {e}")
-            driver.save_screenshot("error_send_to_gis.png")
+            browser_not_found.append(gtin)
+            logging.warning(f"❌ GTIN {gtin} пропущен из-за ошибки при отправке")
+            driver.quit()
+            return True, f"GTIN {gtin} НЕ НАЙДЕН В СПРАВОЧНИКЕ"
 
         # Step: Подписать сертификатом
         logging.info("Нажимаем ПОДПИСАТЬ СЕРТИФИКАТОМ")

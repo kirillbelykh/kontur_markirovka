@@ -1,10 +1,11 @@
 import os
 import logging
 import pandas as pd
-from typing import List
+from typing import List, Dict
 from dataclasses import asdict
 from backend import OrderItem, perform_order_item, ui_print, lookup_gtin
 
+# ==== Опции выбора ====
 simplified_options = [
     "стер лат 1-хлор", "стер лат", "стер лат 2-хлор", "стер нитрил",
     "хир", "хир 1-хлор", "хир с полимерным", "хир 2-хлор", "хир изопрен",
@@ -55,38 +56,60 @@ def main():
     df = pd.read_excel(NOMENCLATURE_XLSX)
     df.columns = df.columns.str.strip()
 
+    ui_print("=== Kontur Automation — ввод позиций ===")
     collected: List[OrderItem] = []
 
     while True:
-        print("\n=== Ввод новой позиции ===")
-        if collected:
-            print("0 - Отменить последнюю добавленную позицию")
-        order_name = input("Заявка (текст, будет вставлен в 'Заказ кодов №'): ").strip()
-        if order_name == "0" and collected:
-            removed = collected.pop()
-            ui_print(f"✅ Последняя позиция удалена: {removed.simpl_name} ({removed.size}, {removed.units_per_pack} уп.)")
-            continue
+        # Спрашиваем: поиск по GTIN?
+        print("\nПоиск по GTIN?")
+        print("1. Да")
+        print("2. Нет")
+        gtin_choice = input("Выбор (1/2): ").strip()
+        if gtin_choice == "1":
+            order_name = input("Заявка (текст, будет вставлен в 'Заказ кодов №'): ").strip()
+            gtin_input = input("Введите GTIN: ").strip()
+            try:
+                codes_count = int(input("Количество кодов (целое): ").strip())
+            except:
+                ui_print("Неверно введено количество кодов. Попробуй ещё раз.")
+                continue
 
-        simpl = choose_option(simplified_options, "Выберите вид товара")
-        color = None
-        if simpl.lower() in [c.lower() for c in color_required]:
-            color = choose_option(color_options, "Выберите цвет")
-        venchik = None
-        if simpl.lower() in [c.lower() for c in venchik_required]:
-            venchik = choose_option(venchik_options, "С венчиком/без венчика?")
-        size = choose_option(size_options, "Выберите размер")
-        units = choose_option(units_options, "Выберите количество единиц в упаковке")
+            it = OrderItem(
+                order_name=order_name,
+                simpl_name="по GTIN",
+                size="не указано",
+                units_per_pack="не указано",
+                codes_count=codes_count,
+                gtin=gtin_input,
+                full_name=""
+            )
+            collected.append(it)
+            ui_print(f"Добавлено по GTIN: {gtin_input} — {codes_count} кодов — заявка '{order_name}'")
 
-        try:
-            codes_count = int(input("Количество кодов (целое): ").strip())
-        except:
-            ui_print("Неверно введено количество кодов. Попробуй ещё раз.")
-            continue
+        elif gtin_choice == "2":
+            # Обычный ввод по параметрам
+            order_name = input("\nЗаявка (текст, будет вставлен в 'Заказ кодов №'): ").strip()
+            simpl = choose_option(simplified_options, "Выберите вид товара")
+            color = None
+            if simpl.lower() in [c.lower() for c in color_required]:
+                color = choose_option(color_options, "Выберите цвет")
+            venchik = None
+            if simpl.lower() in [c.lower() for c in venchik_required]:
+                venchik = choose_option(venchik_options, "С венчиком/без венчика?")
+            size = choose_option(size_options, "Выберите размер")
+            units = choose_option(units_options, "Выберите количество единиц в упаковке")
 
-        gtin, full_name = lookup_gtin(df, simpl, size, units, color, venchik)
-        if not gtin:
-            ui_print(f"GTIN не найден для ({simpl}, {size}, {units}, {color}, {venchik}) — позиция не добавлена.")
-        else:
+            try:
+                codes_count = int(input("Количество кодов (целое): ").strip())
+            except:
+                ui_print("Неверно введено количество кодов. Попробуй ещё раз.")
+                continue
+
+            gtin, full_name = lookup_gtin(df, simpl, size, units, color, venchik)
+            if not gtin:
+                ui_print(f"GTIN не найден для ({simpl}, {size}, {units}, {color}, {venchik}) — позиция не добавлена.")
+                continue
+
             it = OrderItem(
                 order_name=order_name,
                 simpl_name=simpl,
@@ -98,17 +121,29 @@ def main():
             )
             collected.append(it)
             ui_print(f"Добавлено: {simpl} ({size}, {units} уп., {color or 'без цвета'}) — GTIN {gtin} — {codes_count} кодов — заявка '{order_name}'")
-
-        print("\n1 - Ввести ещё позицию\n2 - Выполнить все накопленные позиции\n0 - Отменить последнюю добавленную позицию")
-        choice = input("Выбор: ").strip()
-        if choice == "0" and collected:
-            removed = collected.pop()
-            ui_print(f"✅ Последняя позиция удалена: {removed.simpl_name} ({removed.size}, {removed.units_per_pack} уп.)")
+        else:
+            ui_print("Неверный выбор — попробуйте снова.")
             continue
-        elif choice == "1":
+
+        # Варианты продолжения
+        print("\n1 - Ввести ещё позицию")
+        print("2 - Отменить последнюю позицию")
+        print("3 - Выполнить все накопленные позиции")
+        choice = input("Выбор (1/2/3): ").strip()
+        if choice == "1":
             continue
         elif choice == "2":
+            if collected:
+                removed = collected.pop()
+                ui_print(f"Удалена последняя позиция: {removed.simpl_name} — GTIN {removed.gtin}")
+            else:
+                ui_print("Список пуст — нечего удалять.")
+            continue
+        elif choice == "3":
             break
+        else:
+            ui_print("Неверный выбор — продолжаем ввод.")
+            continue
 
     if not collected:
         ui_print("Нет накопленных позиций — выходим.")
