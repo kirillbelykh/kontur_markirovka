@@ -1,0 +1,56 @@
+[
+  {
+    "order_name": "250911 ЭМ (Хрусталев, Петров) 6",
+    "simpl_name": "по GTIN",
+    "size": "не указано",
+    "units_per_pack": "не указано",
+    "codes_count": 1,
+    "gtin": "04640473515111",
+    "full_name": ""
+  },
+  {
+    "order_name": "250911 ЭМ (Хрусталев, Петров) 10",
+    "simpl_name": "по GTIN",
+    "size": "не указано",
+    "units_per_pack": "не указано",
+    "codes_count": 1,
+    "gtin": "04640473506218",
+    "full_name": ""
+  },
+  {
+    "order_name": "250911 ЭМ (Хрусталев, Петров) 11",
+    "simpl_name": "по GTIN",
+    "size": "не указано",
+    "units_per_pack": "не указано",
+    "codes_count": 4,
+    "gtin": "04640473506225",
+    "full_name": ""
+  },
+  {
+    "order_name": "250911 ЭМ (Хрусталев, Петров) 12",
+    "simpl_name": "по GTIN",
+    "size": "не указано",
+    "units_per_pack": "не указано",
+    "codes_count": 4,
+    "gtin": "04640473506225",
+    "full_name": ""
+  },
+  {
+    "order_name": "250911 ЭМ (Хрусталев, Петров) 13",
+    "simpl_name": "по GTIN",
+    "size": "не указано",
+    "units_per_pack": "не указано",
+    "codes_count": 1,
+    "gtin": "04640473506225",
+    "full_name": ""
+  },
+  {
+    "order_name": "250911 ЭМ (Хрусталев, Петров) 14",
+    "simpl_name": "по GTIN",
+    "size": "не указано",
+    "units_per_pack": "не указано",
+    "codes_count": 1,
+    "gtin": "04640473506225",
+    "full_name": ""
+  }
+]

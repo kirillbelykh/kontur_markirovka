@@ -1,19 +1,20 @@
 import os
 import logging
+import json
+import copy
 import pandas as pd
 from typing import List, Optional, Tuple
 from dataclasses import asdict
 
-# импортируем из backend — предполагается, что эти имена там есть
 from backend import OrderItem, perform_order_item, ui_print, lookup_gtin
 
-# (опционально) если в backend есть browser_not_found, импортируем для отчёта
+# try import global browser_not_found for final report
 try:
     from backend import browser_not_found  # type: ignore
 except Exception:
     browser_not_found = []
 
-# ==== Опции выбора ====
+# === options (unchanged) ===
 simplified_options = [
     "стер лат 1-хлор", "стер лат", "стер лат 2-хлор", "стер нитрил",
     "хир", "хир 1-хлор", "хир с полимерным", "хир 2-хлор", "хир изопрен",
@@ -63,7 +64,6 @@ def print_collected(collected: List[OrderItem]):
         return
     print("\n--- Накопленные позиции ---")
     for idx, it in enumerate(collected, start=1):
-        # формат вывода под поля OrderItem
         print(f"{idx}. {it.simpl_name} | {it.size} | {it.units_per_pack} уп. | GTIN {it.gtin} | к-во: {it.codes_count} | заявка: '{it.order_name}'")
     print("---------------------------\n")
 
@@ -87,20 +87,14 @@ def choose_delete_index(collected: List[OrderItem]) -> Optional[int]:
 
 
 def safe_perform(it: OrderItem) -> Tuple[bool, str]:
-    """
-    Обёртка над perform_order_item: защищаемся от None/исключений.
-    Возвращаем (ok, message).
-    """
     try:
         res = perform_order_item(asdict(it))
-        # если функция вернула None или не кортеж — корректируем
         if res is None:
             logging.error("perform_order_item вернула None")
             return False, "perform_order_item вернула None"
         if isinstance(res, tuple) and len(res) == 2:
             ok, msg = res
             return bool(ok), str(msg)
-        # неожиданное значение
         logging.error(f"perform_order_item вернула некорректный результат: {res}")
         return False, f"Некорректный результат: {res}"
     except Exception as e:
@@ -121,7 +115,6 @@ def main():
     collected: List[OrderItem] = []
 
     while True:
-        # Ввод режима
         print("\nПоиск по GTIN?")
         print("1. Да")
         print("2. Нет")
@@ -199,7 +192,7 @@ def main():
             ui_print("Неверный выбор — попробуйте снова.")
             continue
 
-        # Меню после добавления
+        # меню действий
         while True:
             print("\nДействия:")
             print("1 - Ввести ещё позицию")
@@ -209,7 +202,7 @@ def main():
             print("0 - Выйти без выполнения")
             action = input("Выбор (0/1/2/3/4): ").strip()
             if action == "1":
-                break  # переходим к добавлению новой позиции
+                break
             elif action == "2":
                 idx = choose_delete_index(collected)
                 if idx is None:
@@ -220,13 +213,23 @@ def main():
             elif action == "3":
                 print_collected(collected)
             elif action == "4":
-                # Подтверждение
+                # подтверждение + snapshot
                 print_collected(collected)
                 confirm = input(f"Подтвердите выполнение {len(collected)} задач(и)? (y/n): ").strip().lower()
                 if confirm != "y":
                     ui_print("Выполнение отменено пользователем.")
                     continue
-                to_process = collected.copy()  # snapshot
+
+                # делаем жёсткую глубокую копию коллекции (snapshot)
+                to_process = copy.deepcopy(collected)
+                # сохраняем snapshot на диск для дебага
+                try:
+                    with open("last_snapshot.json", "w", encoding="utf-8") as f:
+                        json.dump([asdict(x) for x in to_process], f, ensure_ascii=False, indent=2)
+                    logging.info("Saved last_snapshot.json (snapshot of to_process).")
+                except Exception:
+                    logging.exception("Не удалось сохранить last_snapshot.json")
+
                 if not to_process:
                     ui_print("Нет накопленных позиций — выходим.")
                     return
@@ -256,7 +259,8 @@ def main():
                     for g in sorted(set(browser_not_found)):
                         print(" -", g)
 
-                return  # выход после выполнения
+                # можно очистить collected или оставить — оставлю для возможности повторного запуска
+                return
             elif action == "0":
                 ui_print("Выход без выполнения.")
                 return

@@ -123,3 +123,127 @@ Stacktrace:
 2025-09-11 11:42:35,938 - INFO - Кнопка 'Подписать сертификатом' найдена
 2025-09-11 11:42:35,997 - INFO - \u2705 Нажата кнопка 'Подписать сертификатом'
 2025-09-11 11:42:38,545 - INFO - \u2705 Кнопка 'Подписать и отправить в ГИС МТ' нажата
+2025-09-11 12:10:02,160 - INFO - Saved last_snapshot.json (snapshot of to_process).
+2025-09-11 12:10:02,160 - INFO - Worker start for order: 250911 ЭМ (Хрусталев, Петров) 6 - по GTIN
+2025-09-11 12:10:26,530 - INFO - Попытка клика через обычный click() выполнена
+2025-09-11 12:10:31,626 - WARNING - Кнопка не исчезла после клика, пробуем JS-клик
+2025-09-11 12:10:32,654 - INFO - Попытка клика через JS выполнена
+2025-09-11 12:10:33,051 - INFO - Введен GTIN: 04640473515111
+2025-09-11 12:10:35,433 - INFO - \u2705 GTIN выбран через клавиатуру (\u2193 + Enter)
+2025-09-11 12:10:40,273 - INFO - \u2705 Количество кодов подтверждено: 1
+2025-09-11 12:10:42,898 - INFO - \u2705 Кнопка 'Отправить в ГИС МТ' нажата
+2025-09-11 12:10:42,899 - INFO - Нажимаем ПОДПИСАТЬ СЕРТИФИКАТОМ
+2025-09-11 12:10:42,952 - INFO - Кнопка 'Подписать сертификатом' найдена
+2025-09-11 12:10:43,013 - INFO - \u2705 Нажата кнопка 'Подписать сертификатом'
+2025-09-11 12:10:45,566 - INFO - \u2705 Кнопка 'Подписать и отправить в ГИС МТ' нажата
+2025-09-11 12:10:51,147 - INFO - Worker start for order: 250911 ЭМ (Хрусталев, Петров) 10 - по GTIN
+2025-09-11 12:11:29,613 - INFO - Кнопка 'Далее к заполнению реквизитов' не найдена/пропускаем
+2025-09-11 12:11:50,014 - INFO - Не удалось установить 'Единица товара' (возможно уже выбрано)
+2025-09-11 12:12:00,267 - ERROR - Ошибка при клике на кнопку 'Далее к загрузке товаров': Message: 
+Stacktrace:
+	GetHandleVerifier [0x0x7ff708ee7c15+24469]
+	(No symbol) [0x0x7ff708e2f920]
+	(No symbol) [0x0x7ff708c7b19a]
+	(No symbol) [0x0x7ff708cd1766]
+	(No symbol) [0x0x7ff708cd1a1c]
+	(No symbol) [0x0x7ff708d27457]
+	(No symbol) [0x0x7ff708cfc30f]
+	(No symbol) [0x0x7ff708d24175]
+	(No symbol) [0x0x7ff708cfc0a3]
+	(No symbol) [0x0x7ff708cc21a4]
+	(No symbol) [0x0x7ff708cc3513]
+	GetHandleVerifier [0x0x7ff709260cfd+3666045]
+	GetHandleVerifier [0x0x7ff709294332+3876530]
+	GetHandleVerifier [0x0x7ff709289f13+3834515]
+	GetHandleVerifier [0x0x7ff708fd486e+994286]
+	(No symbol) [0x0x7ff708e3904d]
+	(No symbol) [0x0x7ff708e34cc4]
+	(No symbol) [0x0x7ff708e34e77]
+	(No symbol) [0x0x7ff708e26525]
+	BaseThreadInitThunk [0x0x7ff85749e8d7+23]
+	RtlUserThreadStart [0x0x7ff857808d9c+44]
+
+2025-09-11 12:12:00,419 - INFO - Сделан скриншот error_next_upload.png
+2025-09-11 12:12:10,644 - ERROR - Ошибка при вводе GTIN или количества: Message: 
+Stacktrace:
+	GetHandleVerifier [0x0x7ff708ee7c15+24469]
+	(No symbol) [0x0x7ff708e2f920]
+	(No symbol) [0x0x7ff708c7b19a]
+	(No symbol) [0x0x7ff708cd1766]
+	(No symbol) [0x0x7ff708cd1a1c]
+	(No symbol) [0x0x7ff708d27457]
+	(No symbol) [0x0x7ff708cfc30f]
+	(No symbol) [0x0x7ff708d24175]
+	(No symbol) [0x0x7ff708cfc0a3]
+	(No symbol) [0x0x7ff708cc21a4]
+	(No symbol) [0x0x7ff708cc3513]
+	GetHandleVerifier [0x0x7ff709260cfd+3666045]
+	GetHandleVerifier [0x0x7ff709294332+3876530]
+	GetHandleVerifier [0x0x7ff709289f13+3834515]
+	GetHandleVerifier [0x0x7ff708fd486e+994286]
+	(No symbol) [0x0x7ff708e3904d]
+	(No symbol) [0x0x7ff708e34cc4]
+	(No symbol) [0x0x7ff708e34e77]
+	(No symbol) [0x0x7ff708e26525]
+	BaseThreadInitThunk [0x0x7ff85749e8d7+23]
+	RtlUserThreadStart [0x0x7ff857808d9c+44]
+
+2025-09-11 12:12:20,981 - ERROR - Ошибка при нажатии кнопки 'Отправить в ГИС МТ': Message: 
+Stacktrace:
+	GetHandleVerifier [0x0x7ff708ee7c15+24469]
+	(No symbol) [0x0x7ff708e2f920]
+	(No symbol) [0x0x7ff708c7b19a]
+	(No symbol) [0x0x7ff708cd1766]
+	(No symbol) [0x0x7ff708cd1a1c]
+	(No symbol) [0x0x7ff708d27457]
+	(No symbol) [0x0x7ff708cfc30f]
+	(No symbol) [0x0x7ff708d24175]
+	(No symbol) [0x0x7ff708cfc0a3]
+	(No symbol) [0x0x7ff708cc21a4]
+	(No symbol) [0x0x7ff708cc3513]
+	GetHandleVerifier [0x0x7ff709260cfd+3666045]
+	GetHandleVerifier [0x0x7ff709294332+3876530]
+	GetHandleVerifier [0x0x7ff709289f13+3834515]
+	GetHandleVerifier [0x0x7ff708fd486e+994286]
+	(No symbol) [0x0x7ff708e3904d]
+	(No symbol) [0x0x7ff708e34cc4]
+	(No symbol) [0x0x7ff708e34e77]
+	(No symbol) [0x0x7ff708e26525]
+	BaseThreadInitThunk [0x0x7ff85749e8d7+23]
+	RtlUserThreadStart [0x0x7ff857808d9c+44]
+
+2025-09-11 12:12:20,981 - WARNING - \u274c GTIN 04640473506218 пропущен из-за ошибки при отправке
+2025-09-11 12:12:23,523 - INFO - Worker start for order: 250911 ЭМ (Хрусталев, Петров) 11 - по GTIN
+2025-09-11 12:12:50,859 - INFO - Warehouse card not found/clickable or already selected
+2025-09-11 12:13:11,293 - ERROR - Не удалось найти/кликнуть 'Заказать коды'
+2025-09-11 12:13:31,634 - INFO - Производство РФ выбор: не найден/не понадобился
+2025-09-11 12:13:51,983 - INFO - Кнопка 'Далее' не обнаружена — продолжаем
+2025-09-11 12:14:12,359 - INFO - Галочка 'Наполнить из справочника' не найдена/не нужна
+2025-09-11 12:14:32,712 - WARNING - Поле 'Заказ кодов №' не найдено/не удалось заполнить
+2025-09-11 12:14:47,980 - INFO - Кнопка 'Далее к заполнению реквизитов' не найдена/пропускаем
+2025-09-11 12:15:08,314 - INFO - Не удалось установить 'Единица товара' (возможно уже выбрано)
+2025-09-11 12:15:18,520 - ERROR - Ошибка при клике на кнопку 'Далее к загрузке товаров': Message: 
+Stacktrace:
+	GetHandleVerifier [0x0x7ff708ee7c15+24469]
+	(No symbol) [0x0x7ff708e2f920]
+	(No symbol) [0x0x7ff708c7b19a]
+	(No symbol) [0x0x7ff708cd1766]
+	(No symbol) [0x0x7ff708cd1a1c]
+	(No symbol) [0x0x7ff708d27457]
+	(No symbol) [0x0x7ff708cfc30f]
+	(No symbol) [0x0x7ff708d24175]
+	(No symbol) [0x0x7ff708cfc0a3]
+	(No symbol) [0x0x7ff708cc21a4]
+	(No symbol) [0x0x7ff708cc3513]
+	GetHandleVerifier [0x0x7ff709260cfd+3666045]
+	GetHandleVerifier [0x0x7ff709294332+3876530]
+	GetHandleVerifier [0x0x7ff709289f13+3834515]
+	GetHandleVerifier [0x0x7ff708fd486e+994286]
+	(No symbol) [0x0x7ff708e3904d]
+	(No symbol) [0x0x7ff708e34cc4]
+	(No symbol) [0x0x7ff708e34e77]
+	(No symbol) [0x0x7ff708e26525]
+	BaseThreadInitThunk [0x0x7ff85749e8d7+23]
+	RtlUserThreadStart [0x0x7ff857808d9c+44]
+
+2025-09-11 12:15:18,644 - INFO - Сделан скриншот error_next_upload.png
